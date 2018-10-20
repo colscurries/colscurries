@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	fs := http.FileServer(http.Dir("assets/"))
+	fs := http.FileServer(http.Dir("static/"))
 
 	http.HandleFunc("/", index)
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -16,15 +16,13 @@ func main() {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	fp := path.Join("templates", "index.html")
-
 	tmpl, err := template.ParseFiles(fp)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	if err := tmpl.Execute(w, fp); err != nil {
+	if err := tmpl.Execute(w, "index.html"); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
