@@ -3,7 +3,6 @@ package main
 import (
 	"html/template"
 	"net/http"
-	"path"
 )
 
 func main() {
@@ -16,7 +15,7 @@ func main() {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles(fp)
+	tmpl, err := template.ParseFiles("index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
